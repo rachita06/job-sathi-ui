@@ -1,0 +1,559 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ── Keyframes ── */
+@keyframes reg_spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes reg_in {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes reg_shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-6px);
+    }
+    60% {
+        transform: translateX(6px);
+    }
+}
+
+@keyframes reg_drift1 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-40px, -25px);
+    }
+}
+
+@keyframes reg_drift2 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(30px, 30px);
+    }
+}
+
+@keyframes reg_pop {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ── Reset ── */
+.register-root * {
+    box-sizing: border-box;
+}
+
+.register-root input::placeholder {
+    color: #334155 !important;
+}
+
+.register-root input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px #0a1628 inset !important;
+    -webkit-text-fill-color: #e2e8f0 !important;
+}
+
+/* ── Page ── */
+.register-page {
+    min-height: 100vh;
+    background: #060d1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.register-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 55% at 85% 15%, rgba(129, 140, 248, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 15% 85%, rgba(0, 229, 160, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 45%, rgba(251, 191, 36, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ── Orbs ── */
+.register-orb-1 {
+    position: absolute;
+    top: -150px;
+    left: -100px;
+    width: 460px;
+    height: 460px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(50px);
+    animation: reg_drift1 16s ease-in-out infinite;
+}
+
+.register-orb-2 {
+    position: absolute;
+    bottom: -130px;
+    right: -80px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 229, 160, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(45px);
+    animation: reg_drift2 20s ease-in-out infinite;
+}
+
+.register-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(0, 229, 160, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 160, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+/* ── Wrapper ── */
+.register-wrapper {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s cubic-bezier(.16, 1, .3, 1), transform 0.6s cubic-bezier(.16, 1, .3, 1);
+}
+
+.register-wrapper.mounted {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── Brand ── */
+.register-brand {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.register-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #00e5a0, #00a370);
+    margin-bottom: 14px;
+    font-size: 24px;
+    box-shadow: 0 0 0 1px rgba(0, 229, 160, 0.3), 0 8px 32px rgba(0, 229, 160, 0.4), 0 0 60px rgba(0, 229, 160, 0.12);
+}
+
+.register-brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.register-brand-ats {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    color: #00e5a0;
+    font-family: 'JetBrains Mono', monospace;
+    text-shadow: 0 0 20px rgba(0, 229, 160, 0.5);
+}
+
+.register-brand-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.register-brand-sub {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: #475569;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Card ── */
+.register-card {
+    background: rgba(10, 22, 45, 0.88);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 36px 40px 30px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04) inset, 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    animation: reg_in 0.6s cubic-bezier(.16, 1, .3, 1) both;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.8), rgba(0, 229, 160, 0.6), transparent);
+    border-radius: 99px;
+}
+
+.register-card::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 120px;
+    background: radial-gradient(ellipse, rgba(129, 140, 248, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.register-card-accent {
+    display: none;
+}
+
+/* ── Success overlay ── */
+.register-success-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: rgba(6, 13, 26, 0.97);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    gap: 16px;
+    backdrop-filter: blur(4px);
+}
+
+.register-success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00e5a0, #00a370);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 0 0 1px rgba(0, 229, 160, 0.4), 0 8px 40px rgba(0, 229, 160, 0.5);
+    animation: reg_pop 0.4s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.register-success-title {
+    color: #00e5a0;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-success-sub {
+    color: #475569;
+    font-size: 14px;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── Heading ── */
+.register-heading {
+    margin-bottom: 24px;
+}
+
+.register-heading h1 {
+    font-size: 25px;
+    font-weight: 800;
+    color: #f0f6ff;
+    margin: 0 0 5px;
+    letter-spacing: -0.4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-heading p {
+    color: #64748b;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ── Input field ── */
+.register-field {
+    margin-bottom: 16px;
+}
+
+.register-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    color: #475569;
+    transition: color 0.2s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-label.focused {
+    color: #00e5a0;
+}
+
+.register-label.errored {
+    color: #f87171;
+}
+
+.register-input-wrap {
+    position: relative;
+}
+
+.register-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #e2e8f0;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.25s;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-input.has-toggle {
+    padding-right: 46px;
+}
+
+.register-input.focused {
+    border-color: #00e5a0;
+    background: rgba(0, 229, 160, 0.06);
+    box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.12), 0 2px 12px rgba(0, 229, 160, 0.06);
+}
+
+.register-input.errored {
+    border-color: #f87171;
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.12);
+}
+
+.register-toggle-btn {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #334155;
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.register-toggle-btn:hover {
+    color: #00e5a0;
+    background: rgba(0, 229, 160, 0.08);
+}
+
+.register-field-error {
+    color: #f87171;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ── Strength bar ── */
+.register-strength {
+    margin-top: -2px;
+    margin-bottom: 16px;
+}
+
+.register-strength-bars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 5px;
+}
+
+.register-strength-bar {
+    flex: 1;
+    height: 3px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.07);
+    transition: background 0.35s;
+}
+
+.register-strength-label {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── Requirements ── */
+.register-reqs {
+    background: rgba(0, 229, 160, 0.04);
+    border: 1px solid rgba(0, 229, 160, 0.1);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.register-req-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #334155;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: color 0.25s;
+    font-weight: 500;
+}
+
+.register-req-item.met {
+    color: #00e5a0;
+}
+
+/* ── Error alert ── */
+.register-alert {
+    background: rgba(248, 113, 113, 0.08);
+    border: 1px solid rgba(248, 113, 113, 0.25);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 10px;
+    animation: reg_shake 0.4s ease;
+}
+
+.register-alert span {
+    color: #fca5a5;
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── Submit button ── */
+.register-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #00e5a0 0%, #00c98a 50%, #00a370 100%);
+    border: none;
+    border-radius: 13px;
+    color: #012a1a;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 24px rgba(0, 229, 160, 0.35), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.5s;
+}
+
+.register-submit-btn:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.register-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 229, 160, 0.5), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+}
+
+.register-submit-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ── Spinner ── */
+.register-spinner {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border: 2.5px solid rgba(0, 0, 0, 0.2);
+    border-top-color: #012a1a;
+    border-radius: 50%;
+    animation: reg_spin 0.65s linear infinite;
+}
+
+/* ── Switch ── */
+.register-switch {
+    text-align: center;
+    color: #475569;
+    font-size: 14px;
+    margin: 20px 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-switch-btn {
+    background: none;
+    border: none;
+    color: #00e5a0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: all 0.2s;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+}
+
+.register-switch-btn:hover {
+    color: #6effd0;
+    text-decoration-color: #6effd088;
+}
+
+/* ── Footer note ── */
+.register-footer-note {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.07);
+    font-size: 12px;
+    margin-top: 18px;
+}
