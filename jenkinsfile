@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    environment {
+        KUBECONFIG = '/var/jenkins_home/.kube/config'  // Jenkins container भित्र path
+    }
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/rachita06/job-sathi-ui.git', branch: 'main'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                   
+                    sh 'kubectl apply -f deploy.yaml'
+                    sh 'kubectl apply -f service.yaml'
+
+                    // Check pods & service
+                    sh 'kubectl get pods'
+                    sh 'kubectl get svc'
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-sathi-ui-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-sathi-ui
+  template:
+    metadata:
+      labels:
+        app: jobsathi-ui
+    spec:
+      containers:
+      - name: job-sathi-ui
+        image: rachita06/jobsathi-ui:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: my-dockerhub-secret
