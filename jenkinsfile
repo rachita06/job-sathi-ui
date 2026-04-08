@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clone GitHub repo with credentials
-                git credentialsId: 'git-06', url: 'https://github.com/rachita06/job-sathi-ui.git', branch: 'main'
+                git credentialsId: 'git-06', url: 'https://github.com/rachita06/job-sathi-ui.git', branch: 'phase1'
             }
         }
 
